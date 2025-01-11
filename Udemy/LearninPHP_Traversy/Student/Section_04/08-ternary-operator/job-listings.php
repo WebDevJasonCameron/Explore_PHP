@@ -38,7 +38,7 @@ $listings = [
     'description' => 'We are looking for a friendly customer service representative to assist customers and resolve issues.',
     'salary' => 40000,
     'location' => 'New York',
-    'tags' => ['Customer Support', 'Communication', 'Problem Solving']
+    'tags' => []
   ],
 ];
 ?>
@@ -61,34 +61,36 @@ $listings = [
     </div>
   </header>
   <div class="container mx-auto p-4 mt-4">
-    <!-- Output -->
-    <?php foreach ($listings as $listing) : ?>
-        <div class="md my-4">
-          <div class="bg-white rounded-lg shadow-md">
-            <div class="p-4">
-              <h2 class="text-xl font-semibold">
-                  <?= $listing['title']; ?>
-              </h2>
-              <p class="text-gray-700 text-lg mt-2">
-                  <?= $listing['description']; ?>
-              </p>
-              <ul class="mt-4">
+    <?php foreach ($listings as $index => $job) : ?>
+      <div class="md my-4">
+        <div class="rounded-lg shadow-md 
+            <?php if ($index % 2 === 0) : ?>
+              bg-blue-100
+            <?php else : ?>
+              bg-white
+            <?php endif; ?>">
+          <div class="p-4">
+            <h2 class="text-xl font-semibold"><?= $job['title'] ?></h2>
+            <p class="text-gray-700 text-lg mt-2"><?= $job['description'] ?></p>
+            <ul class="mt-4">
+              <li class="mb-2">
+                <strong>Salary:</strong> <?= $job['salary'] ?>
+              </li>
+              <li class="mb-2">
+                <strong>Location:</strong> <?= $job['location'] ?>
+                <?php if ($job['location'] === 'New York') : ?>
+                  <span class="text-xs text-white bg-blue-500 rounded-full px-2 py-1 ml-2">Local</span>
+                <?php endif; ?>
+              </li>
+              <?php if (!empty($job['tags'])) : ?>
                 <li class="mb-2">
-                  <strong>Salary:</strong>
-                    $<?= $listing['salary']; ?>
+                  <strong>Tags:</strong> <?= implode(', ', $job['tags']) ?>
                 </li>
-                <li class="mb-2">
-                  <strong>Location:</strong>
-                    <?= $listing['location']; ?>
-                </li>
-                <li class="mb-2">
-                  <strong>Tags:</strong>
-                    <?= implode(', ', $listing['tags']); ?>
-                </li>
-              </ul>
-            </div>
+              <?php endif; ?>
+            </ul>
           </div>
         </div>
+      </div>
     <?php endforeach; ?>
   </div>
 </body>

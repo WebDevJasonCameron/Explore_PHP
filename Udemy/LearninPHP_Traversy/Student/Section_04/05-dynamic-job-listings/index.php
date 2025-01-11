@@ -62,33 +62,26 @@ $listings = [
   </header>
   <div class="container mx-auto p-4 mt-4">
     <!-- Output -->
-    <?php foreach ($listings as $listing) : ?>
-        <div class="md my-4">
-          <div class="bg-white rounded-lg shadow-md">
-            <div class="p-4">
-              <h2 class="text-xl font-semibold">
-                  <?= $listing['title']; ?>
-              </h2>
-              <p class="text-gray-700 text-lg mt-2">
-                  <?= $listing['description']; ?>
-              </p>
-              <ul class="mt-4">
-                <li class="mb-2">
-                  <strong>Salary:</strong>
-                    $<?= $listing['salary']; ?>
-                </li>
-                <li class="mb-2">
-                  <strong>Location:</strong>
-                    <?= $listing['location']; ?>
-                </li>
-                <li class="mb-2">
-                  <strong>Tags:</strong>
-                    <?= implode(', ', $listing['tags']); ?>
-                </li>
-              </ul>
-            </div>
+    <?php foreach ($listings as $job) : ?>
+      <div class="md my-4">
+        <div class="bg-white rounded-lg shadow-md">
+          <div class="p-4">
+            <h2 class="text-xl font-semibold"><?= $job['title'] ?></h2>
+            <p class="text-gray-700 text-lg mt-2"><?= $job['description'] ?></p>
+            <ul class="mt-4">
+              <li class="mb-2">
+                <strong>Salary:</strong> <?= $job['salary'] ?>
+              </li>
+              <li class="mb-2">
+                <strong>Location:</strong> <?= $job['location'] ?>
+              </li>
+              <li class="mb-2">
+                <strong>Tags:</strong> <?= implode(', ', $job['tags']) ?>
+              </li>
+            </ul>
           </div>
         </div>
+      </div>
     <?php endforeach; ?>
   </div>
 </body>
