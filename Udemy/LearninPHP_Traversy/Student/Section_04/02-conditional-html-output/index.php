@@ -1,3 +1,8 @@
+<?php
+    $isLoggedIn = true;
+    $name = null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +21,32 @@
   </header>
   <div class="container mx-auto p-4 mt-4">
     <div class="bg-white rounded-lg shadow-md p-6 mt-6">
-      <!-- Output -->
-      <h1 class="text-3xl">Welcome</h1>
+        <!-- Output -->
+        <?php // long and drawn out way
+            /*
+            <?php if($isLoggedIn) : ?>
+                <?php if (isset($name)) : ?>
+                    <h1 class="text-3xl">
+                        <?= "Welcome, $name"?>
+                    </h1>
+                <?php else: ?>
+                    <h1 class="text-3xl">Welcome</h1>
+                <?php endif; ?>
+            <?php else : ?>
+                <h1 class="text-3xl">Please Log in</h1>
+            <?php endif; ?>
+            */
+        ?>
+
+        <?php if ($isLoggedIn && $name) : ?>
+            <h1 class="text-3xl">
+                <?= "Welcome, $name"?>
+            </h1>
+        <?php elseif($isLoggedIn) : ?>
+            <h1 class="text-3xl">Welcome</h1>
+        <?php else : ?>
+            <h1 class="text-3xl">Please Log in</h1>
+        <?php endif; ?>
     </div>
   </div>
 </body>
