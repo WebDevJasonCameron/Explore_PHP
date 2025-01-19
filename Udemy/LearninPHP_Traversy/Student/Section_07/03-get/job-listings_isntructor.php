@@ -42,6 +42,9 @@ $listings = [
   ],
 ];
 
+$validLocations = ['Chicago', 'San Francisco', 'New York', 'Seattle', 'Boston'];
+
+
 function formatSalary($salary)
 {
   return '$' . number_format($salary, 2);
@@ -69,24 +72,24 @@ function calculateAverageSalary($listings)
   return formatSalary($averageSalary);
 }
 
-function filterListingsByLocation($listings, $location): array{
-    return array_filter($listings, function($job) use ($location){
-        return strcasecmp($job['location'], $location) === 0;
-    });
+// Filter job listings by location
+function filterListingsByLocation($listings, $location)
+{
+  return array_filter($listings, function ($job) use ($location) {
+    return strcasecmp($job['location'], $location) === 0;
+  });
 }
 
+// Check for location query string parameter and filter job listings by location
+if (isset($_GET['location']) && in_array($_GET['location'], $validLocations)) {
+  $location = $_GET['location'];
 
-// Check if location query string is there
-if(isset($_GET['location'])) {
-    $location = $_GET['location'];
-
-    $filterListings = filterListingsByLocation($listings, $location);
-
+  // Filter job listings by the specified location
+  $filteredListings = filterListingsByLocation($listings, $location);
 } else {
-    $filterListings = $listings;
+  // If 'location' is not provided, display all job listings
+  $filteredListings = $listings;
 }
-
-
 ?>
 
 
@@ -97,13 +100,13 @@ if(isset($_GET['location'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Job Listings</title>
+  <title>Job Listing</title>
 </head>
 
 <body class="bg-gray-100">
   <header class="bg-blue-500 text-white p-4">
     <div class="container mx-auto">
-      <h1 class="text-3xl font-semibold">Job Listings</h1>
+      <h1 class="text-3xl font-semibold">Job Listing</h1>
     </div>
   </header>
   <div class="container mx-auto p-4 mt-4">
@@ -111,7 +114,7 @@ if(isset($_GET['location'])) {
       <h2 class="text-2xl font-semibold mb-4">Average Salary: <?= calculateAverageSalary($listings)  ?></h2>
     </div>
     <!-- Output -->
-    <?php foreach ($filterListings as $index => $job) : ?>
+    <?php foreach ($filteredListings as $index => $job) : ?>
       <div class="md my-4">
         <div class="rounded-lg shadow-md <?= $index % 2 === 0 ? 'bg-blue-100' : 'bg-white'; ?>">
           <div class="p-4">

@@ -7,6 +7,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
   $title = htmlspecialchars($_POST['title'] ?? '');
   $description = htmlspecialchars($_POST['description'] ?? '');
 
+  $file =  $_FILES['logo'] ?? '';
+
+  if($file['error'] === UPLOAD_ERR_OK) {
+    // Specify where to upload
+    $uploadDir = 'uploads/';
+
+    if(!is_dir($uploadDir)) {
+      mkdir($uploadDir, 0755, true);
+    }
+
+    // Create file name
+    $filename = uniqid() . '-' . $file['name'];
+
+    echo $filename;
+  }
+
   $submitted = true;
 }
 ?>
