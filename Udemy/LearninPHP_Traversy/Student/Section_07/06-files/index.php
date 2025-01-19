@@ -9,18 +9,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
   $file =  $_FILES['logo'] ?? '';
 
-  if($file['error'] === UPLOAD_ERR_OK) {
+  if ($file['error'] === UPLOAD_ERR_OK) {
     // Specify where to upload
     $uploadDir = 'uploads/';
 
-    if(!is_dir($uploadDir)) {
+    if (!is_dir($uploadDir)) {
       mkdir($uploadDir, 0755, true);
     }
 
     // Create file name
     $filename = uniqid() . '-' . $file['name'];
 
-    echo $filename;
+    // Check File Type
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+    // Make sure extension is in array
+    if(in_array($fileExtension, $allowedExtensions)) {
+      // UpLoad file
+      if (move_uploaded_file($file['tmp_name'], $uploadDir . $filename)) {
+        echo 'File Uploaded!';
+      } else {
+        echo 'File Upload Failed!' . $file['error'];
+      }
+    } else {
+      echo 'Invalid File Upload!';
+    }
   }
 
   $submitted = true;

@@ -2,10 +2,21 @@
 $title = '';
 $description = '';
 $submitted = false;
+$messages = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
   $title = htmlspecialchars($_POST['title'] ?? '');
   $description = htmlspecialchars($_POST['description'] ?? '');
+
+  if(empty($title)) {
+    $messages[] = ['text' => 'Title is required', 'color' => 'text-red-500'];
+    $submitted = false;
+  }
+
+  if(empty($description)) {
+    $messages[] = ['text' => 'Description is required', 'color' => 'text-red-500'];
+    $submitted = false;
+  }
 
 
   $file = $_FILES['logo'];
@@ -30,16 +41,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     if (in_array($fileExtension, $allowedExtensions)) {
       // Upload file
       if (move_uploaded_file($file['tmp_name'], $uploadDir .  $filename)) {
-        echo 'File Uploaded!';
+        $messages[] = ['text' => 'Logo uploaded successfully', 'color' => 'text-green-500'];
+        $submitted = true;
       } else {
+        $messages[] = ['text' => 'Failed to upload logo', 'color' => 'text-red-500'];
         echo 'File Upload Error: ' . $file['error'];
       }
     } else {
-      echo 'Invalid File Type';
+      $messages[] = ['text' => 'File must be an image', 'color' => 'text-red-500'];
+      echo 'File Upload Error: ' . $file['error'];
     }
   }
-
-  $submitted = true;
 }
 ?>
 
@@ -57,6 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
   <div class="flex justify-center items-center h-screen">
     <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
       <h1 class="text-2xl font-semibold mb-6">Create Job Listing</h1>
+      <?php foreach ($messages as $message): ?>
+        <p class="<?= $message['color'] ?>">
+          <?= $message['text'] ?>
+        </p>
+      <?php endforeach; ?>
       <form method="post" enctype="multipart/form-data">
         <div class="mb-4">
           <label for="title" class="block text-gray-700 font-medium">Title</label>
