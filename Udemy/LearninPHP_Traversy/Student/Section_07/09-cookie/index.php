@@ -1,3 +1,7 @@
+<?php
+  setcookie("username", "jDoe", time() + 3600, '/');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
