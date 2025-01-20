@@ -1,3 +1,6 @@
+CREATE DATABASE blog;
+
+
 CREATE TABLE posts(
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -21,3 +24,6 @@ DELETE FROM posts WHERE id = 2;
 INSERT INTO posts (title, body) VALUES
                                     ('Post Four', 'This is the fourth post'),
                                     ('Post Five', 'This is the fifth post');
+
+
+DROP DATABASE blog;
