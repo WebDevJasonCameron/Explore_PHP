@@ -1,4 +1,5 @@
 <?php
+global $pdo;
 require_once 'database.php';
 
 // Get id from query string
@@ -51,6 +52,14 @@ $post = $stmt->fetch();
           <a href="index.php">Go Back</a>
         </div>
       </div>
+      <!-- Delete Form -->
+      <form action="delete.php" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="id" value="<?= $post['id'] ?>">
+        <button type="submit" name="submit" class="bg-red-500 text-white px-4 p-2 rounded hover:bg-red-600 focus:outline-none">
+        Delete
+        </button>
+      </form>
     </div>
   </div>
 </body>

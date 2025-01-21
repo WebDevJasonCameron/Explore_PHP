@@ -1,4 +1,5 @@
 <?php
+global $pdo;
 require_once 'database.php';
 
 $title = '';
