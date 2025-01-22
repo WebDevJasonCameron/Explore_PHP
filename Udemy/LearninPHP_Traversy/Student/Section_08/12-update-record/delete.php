@@ -1,5 +1,6 @@
 <?php
 
+global $pdo;
 require_once 'database.php';
 
 $isDeleteRequest = ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['_method'] ?? '') === 'delete');
