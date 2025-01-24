@@ -6,7 +6,7 @@
  * @param string $path
  * @return string
  */
-function basePath($path = '') {
+function basePath($path = '/') {
   return dirname(__DIR__) . '/workopia/' . $path;
 }
 
@@ -17,7 +17,13 @@ function basePath($path = '') {
  * @return void
  */
 function loadView($name) {
-  require basePath("views/{$name}.view.php");
+  $viewPath = basePath("views/{$name}.view.php");
+
+  if(file_exists($viewPath)) {
+    require $viewPath;
+  } else {
+    echo "View '{$name}' not found. ";
+  }
 }
 
 /**
@@ -27,5 +33,36 @@ function loadView($name) {
  * @return void
  */
 function loadPartial($name) {
-  require basePath("views/partials/{$name}.php");
+  $partialPath = basePath("views/partials/{$name}.php");
+
+  if(file_exists($partialPath)) {
+    require $partialPath;
+  } else {
+    echo "Partial  '{$name}' not found. ";
+  }
+}
+
+/**
+ * Inspect a value(s)
+ *
+ * @param mixed $value
+ * @return void
+ */
+function inspect($value){
+  echo "<pre>";
+  var_dump($value);
+  echo '</pre />';
+}
+
+/**
+ * Inspect a value(s) and die
+ *
+ * @param mixed $value
+ * @return void
+ */
+function inspectAndDie($value){
+  echo "<pre>";
+  var_dump($value);
+  echo '</pre />';
+  die();
 }
