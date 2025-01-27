@@ -7,7 +7,7 @@
  * @return string
  */
 function basePath($path = '/') {
-  return dirname(__DIR__) . '/workopia/' . $path;
+  return dirname(__DIR__) . '/workopia' . $path;
 }
 
 /**
