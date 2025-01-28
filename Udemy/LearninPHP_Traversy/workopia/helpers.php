@@ -7,7 +7,7 @@
  * @return string
  */
 function basePath($path = '/') {
-  return dirname(__DIR__) . '/workopia' . $path;
+  return dirname(__DIR__) . '/workopia/' . $path;
 }
 
 /**
@@ -18,6 +18,8 @@ function basePath($path = '/') {
  */
 function loadView($name) {
   $viewPath = basePath("views/{$name}.view.php");
+
+  echo $viewPath . '<br />';
 
   if(file_exists($viewPath)) {
     require $viewPath;
@@ -33,7 +35,7 @@ function loadView($name) {
  * @return void
  */
 function loadPartial($name) {
-  $partialPath = basePath("views/partials/{$name}.php");
+  $partialPath = basePath("/views/partials/{$name}.php");
 
   if(file_exists($partialPath)) {
     require $partialPath;
@@ -66,3 +68,4 @@ function inspectAndDie($value){
   echo '</pre />';
   die();
 }
+

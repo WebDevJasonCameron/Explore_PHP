@@ -4,3 +4,6 @@ A project from Brad Traversy's PHP Udemy Course
 
 _To run the server:_
 php -S localhost:8000
+
+... Actually, this might need to be run as...
+php -S localhost:8000 -t public
