@@ -6,6 +6,13 @@ class Router {
 
 
   // METHs
+  /**
+   * Add a new route
+   * 
+   * @param string $method
+   * @param string $uri
+   * @param string $controller
+   */
   public function registerRoute($method, $uri, $controller) {
     $this->routes[] = [
       'method' => $method,
