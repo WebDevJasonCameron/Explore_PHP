@@ -3,3 +3,5 @@
 /Instructor
 /External Libraries
 *.zip
+
+db.php
