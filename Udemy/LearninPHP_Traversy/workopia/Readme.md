@@ -10,3 +10,7 @@ php -S localhost:8000 -t public
 
 DB Access
 mysql -u smash -p
+
+Following PS-4 standard
+
+getcomposer.org ==> PHP package handler

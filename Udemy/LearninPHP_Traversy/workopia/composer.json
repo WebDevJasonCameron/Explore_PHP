@@ -1,0 +1,17 @@
+{
+  "name": "smash/workopia-php", 
+  "description": "Job listing application",
+  "authors": [
+    {
+      "name": "Jason Cameron",
+      "email": "dev.jason@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "Framework/",
+      "App\\": "App/"
+
+    }
+  }
+}
