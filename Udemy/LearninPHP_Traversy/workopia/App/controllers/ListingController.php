@@ -15,6 +15,11 @@ class ListingController {
   }
 
   // METHs
+  /**
+   * Show all listings
+   * 
+   * @return void
+   */
   public function index() {
     $listings = $this->db->query('SELECT * FROM listings')->fetchAll();
 
@@ -25,10 +30,20 @@ class ListingController {
     );  
   }
 
+  /**
+   * Show the created listing form
+   * 
+   * @rerturn void
+   */
   public function create() {
     loadView('listings/create');  
   }
 
+  /**
+   * Show a single listing
+   * 
+   * @return void
+   */
   public function show() {
     $id = $_GET['id'] ?? '';
 
