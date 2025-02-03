@@ -1,26 +1,26 @@
 <?php
 
-/**
- * Gets the Base path
+/** Gets the Base path
  *
  * @param string $path
  * @return string
  */
-function basePath($path = '/') {
+function basePath($path = '/')
+{
   return dirname(__DIR__) . '/workopia/' . $path;
 }
 
-/**
- * Load a view
+/**  Load a view
  *
  * @param string $name
  * @param array $data
  * @return void
  */
-function loadView($name, $data = []) {
+function loadView($name, $data = [])
+{
   $viewPath = basePath("App/views/{$name}.view.php");
 
-  if(file_exists($viewPath)) {
+  if (file_exists($viewPath)) {
     extract($data);
     require $viewPath;
   } else {
@@ -28,54 +28,64 @@ function loadView($name, $data = []) {
   }
 }
 
-/**
- * Load a partial
+/** Load a partial
  *
  * @param string $name
  * @return void
  */
-function loadPartial($name) {
+function loadPartial($name)
+{
   $partialPath = basePath("App/views/partials/{$name}.php");
 
-  if(file_exists($partialPath)) {
+  if (file_exists($partialPath)) {
     require $partialPath;
   } else {
     echo "Partial  '{$name}' not found. ";
   }
 }
 
-/**
- * Inspect a value(s)
+/** Inspect a value(s)
  *
  * @param mixed $value
  * @return void
  */
-function inspect($value){
+function inspect($value)
+{
   echo "<pre>";
   var_dump($value);
   echo '</pre />';
 }
 
-/**
- * Inspect a value(s) and die
+/** Inspect a value(s) and die
  *
  * @param mixed $value
  * @return void
  */
-function inspectAndDie($value){
+function inspectAndDie($value)
+{
   echo "<pre>";
   var_dump($value);
   echo '</pre />';
   die();
 }
 
-/**
- * Format salary
+/** Format salary
  * 
  * @param string $salary
  * @return string Formatted Salary
  */
 
-function formatSalary($salary){
+function formatSalary($salary)
+{
   return '$' . number_format(floatval($salary));
+}
+
+/** Sanititze Data
+ * 
+ * @param string $dirty
+ * @return string
+ */
+function sanitize($dirty)
+{
+  return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
 }

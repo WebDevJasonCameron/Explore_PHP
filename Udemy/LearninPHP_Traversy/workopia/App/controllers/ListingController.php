@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Framework\Database;
+use Framework\Validation;
 
 class ListingController
 {
@@ -18,25 +19,24 @@ class ListingController
   }
 
   // METHs
-  /**
-   * Show all listings
+  /** Show all listings
    * 
    * @return void
    */
   public function index()
   {
+
     $listings = $this->db->query('SELECT * FROM listings')->fetchAll();
 
     loadView(
-      "home",
+      "listings/index",
       [
         'listings' => $listings
       ]
     );
   }
 
-  /**
-   * Show the created listing form
+  /** Show Create Listing Form
    * 
    * @rerturn void
    */
@@ -45,8 +45,7 @@ class ListingController
     loadView('listings/create');
   }
 
-  /**
-   * Show a single listing
+  /** Show a single listing
    * 
    * @return void
    */
@@ -66,9 +65,25 @@ class ListingController
       return;
     }
 
-
     loadView('listings/show', [
       'listing' => $listing
     ]);
+  }
+
+  /** Store data in database
+   * 
+   * @return void
+   */
+  public function store()
+  {
+    $allowedFields = ['title', 'description', 'salary', 'tags', 'company', 'address', 'city', 'state', 'phone', 'email', 'requirements', 'benefits'];
+
+    $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
+
+    $newListingData['new_id'] = 1;
+
+    $newListingData = array_map('sanitize', $newListingData);
+
+    inspectAndDie($newListingData);
   }
 }
