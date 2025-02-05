@@ -10,8 +10,7 @@ class Router
   protected $routes = [];
 
   // METHs
-  /**
-   * Add a new route
+  /** Add a new route
    * 
    * @param string $method
    * @param string $uri
@@ -29,8 +28,7 @@ class Router
     ];
   }
 
-  /**
-   * Add a GET route
+  /** Add a GET route
    * 
    * @param string $uri
    * @param string $controller
@@ -41,8 +39,7 @@ class Router
     $this->registerRoute('GET', $uri, $controller);
   }
 
-  /**
-   * Add a POST route
+  /**  Add a POST route
    * 
    * @param string $uri
    * @param string $controller
@@ -53,8 +50,7 @@ class Router
     $this->registerRoute('POST', $uri, $controller);
   }
 
-  /**
-   * Add a PUT route
+  /** Add a PUT route
    * 
    * @param string $uri
    * @param string $controller
@@ -65,8 +61,7 @@ class Router
     $this->registerRoute('PUT', $uri, $controller);
   }
 
-  /**
-   * Add a DELETE route
+  /** Add a DELETE route
    * 
    * @param string $uri
    * @param string $controller
@@ -78,8 +73,7 @@ class Router
   }
 
 
-  /**
-   * Route the request
+  /**  Route the request
    * 
    * @param string $uri
    * @return void
@@ -87,6 +81,12 @@ class Router
   public function route($uri)
   {
     $requestMethod = $_SERVER['REQUEST_METHOD'];
+
+    // Check for _method input
+    if ($requestMethod === 'POST' && isset($_POST['_method'])) {
+      // Override the request method with the value of _method
+      $requestMethod = strtoupper($_POST['_method']);
+    }
 
     foreach ($this->routes as $route) {
 
