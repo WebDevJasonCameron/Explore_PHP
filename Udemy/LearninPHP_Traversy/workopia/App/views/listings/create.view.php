@@ -11,13 +11,9 @@
         Job Info
       </h2>
 
-      <?php if (isset($errors)) : ?>
-        <?php foreach ($errors as $error) : ?>
-          <div class="messag bg-red-100 my3">
-            <?= $error ?>
-          </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
+      <?= loadPartial('errors', [
+        'errors' => $errors ?? []
+      ]) ?>
 
       <div class="mb-4">
         <input
