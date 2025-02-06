@@ -10,15 +10,7 @@
       All Jobs
     </div>
 
-    <?php if (isset($_SESSION['success_message'])) : ?>
-
-      <div class="message bg-green-100 p-3 my-3">
-        <?= $_SESSION['success_message'] ?>
-      </div>
-
-      <?php unset($_SESSION['success_message']); ?>
-
-    <?php endif; ?>
+    <?= loadPartial('message') ?>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
