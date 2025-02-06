@@ -8,3 +8,7 @@ $router->get('/listings/{id}', 'ListingController@show');
 $router->post('/listings', 'ListingController@store');
 $router->put('/listings/{id}', 'ListingController@update');
 $router->delete('/listings/{id}', 'ListingController@destroy');
+
+// Users
+$router->get('/auth/login', 'UserController@login');
+$router->get('/auth/register', 'UserController@create');
