@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Framework\Database;
 use Framework\Validation;
+use Framework\Session;
 
 class UserController
 {
@@ -69,7 +70,6 @@ class UserController
       $errors['password_confirmation'] = 'Passwords do not match';
     }
 
-
     // Show errors
     if (!empty($errors)) {
       loadView('users/create', [
@@ -89,7 +89,7 @@ class UserController
       'email' => $email
     ];
 
-    $user = $this->db->query('SELECT * FROM users WHERE email = :email', $params);
+    $user = $this->db->query('SELECT * FROM users WHERE email = :email', $params)->fetch();
 
     if ($user) {
       $errors['email'] = 'That email already exists';
@@ -98,5 +98,29 @@ class UserController
       ]);
       exit;
     }
+
+    // Create user account
+    $params = [
+      'name' => $name,
+      'email' => $email,
+      'city' => $city,
+      'state' => $state,
+      'password' => password_hash($password, PASSWORD_DEFAULT)
+    ];
+
+    $this->db->query('INSERT INTO users (name, email, city, state, password) VALUES (:name, :email, :city, :state, :password)', $params);
+
+    // Get new user ID
+    $userId = $this->db->conn->lastInsertId();
+
+    Session::set('user', [
+      'id' => $userId,
+      'name' => $name,
+      'email' => $email,
+      'city' => $city,
+      'state' => $state
+    ]);
+
+    redirect('/');
   }
 }
