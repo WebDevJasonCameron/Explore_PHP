@@ -82,8 +82,21 @@ class UserController
         ]
       ]);
       exit;
-    } else {
-      inspectAndDie('store');
+    }
+
+    // Check if email exists
+    $params = [
+      'email' => $email
+    ];
+
+    $user = $this->db->query('SELECT * FROM users WHERE email = :email', $params);
+
+    if ($user) {
+      $errors['email'] = 'That email already exists';
+      loadView('users/create', [
+        'errors' => $errors
+      ]);
+      exit;
     }
   }
 }
