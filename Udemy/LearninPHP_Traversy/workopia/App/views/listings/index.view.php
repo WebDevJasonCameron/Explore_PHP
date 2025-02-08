@@ -7,7 +7,20 @@
 <section>
   <div class="container mx-auto p-4 mt-4">
     <div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">
-      All Jobs
+
+      <?php if (isset($keywords)) : ?>
+        Search Results for Keywords: <?= htmlspecialchars($keywords) ?>
+      <?php elseif (isset($keywords) && isset($location)) : ?>
+        Search Results for Keywords:
+        <?= htmlspecialchars($keywords) ?>
+        & Location:
+        <?= htmlspecialchars($location) ?>
+      <?php elseif (isset($location)) : ?>
+        Search Results for Location: <?= htmlspecialchars($location) ?>
+      <?php else : ?>
+        All Jobs
+      <?php endif; ?>
+
     </div>
 
     <?= loadPartial('message') ?>
